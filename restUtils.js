@@ -15,6 +15,32 @@ class ElasticUtils {
         }, options);
     }
 
+    head(url, data, params) {
+        let options = {
+            method: 'HEAD',
+            uri: url,
+            qs: params
+        };
+
+        return this.requestWrapper(async () => {
+            return await request.head(options);
+        }, options);
+    }
+
+    put(url, data, params) {
+        let options = {
+            method: 'PUT',
+            uri: url,
+            qs: params,
+            body: data,
+            json: true
+        };
+
+        return this.requestWrapper(async () => {
+            return await request.put(options);
+        }, options);
+    }
+
     requestWrapper(requestFunction, options) {
         return requestFunction()
             .catch(e => {

@@ -1,3 +1,13 @@
 const Indexer = require('./indexer');
+const ElasticUtils = require('./elasticUtils');
 
-Indexer.index();
+ElasticUtils.checkIndexExist()
+    .then(exist => {
+        if (!exist) {
+            return ElasticUtils.createIndex();
+        }
+    })
+    .then(value => {
+        return Indexer.index();
+    });
+
