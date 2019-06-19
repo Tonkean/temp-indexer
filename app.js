@@ -1,3 +1,3 @@
 const Indexer = require('./indexer');
 
-Indexer.main();
+Indexer.index();
