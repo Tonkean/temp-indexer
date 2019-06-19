@@ -51,7 +51,6 @@ class ElasticUtils {
         }, options);
     }
 
-
     /**
      * HTTP Put request
      */
@@ -66,6 +65,22 @@ class ElasticUtils {
 
         return this.requestWrapper(async () => {
             return await request.put(options);
+        }, options);
+    }
+
+
+    /**
+     * HTTP Delete request
+     */
+    delete(url, params) {
+        let options = {
+            method: 'DELETE',
+            uri: url,
+            qs: params
+        };
+
+        return this.requestWrapper(async () => {
+            return await request.delete(options);
         }, options);
     }
 

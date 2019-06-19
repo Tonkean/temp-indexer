@@ -13,13 +13,17 @@ let tempIndexSettings = {
     }
 };
 
-ElasticUtils.checkIndexExist('temp-index')
+let indexName = 'temp-index';
+ElasticUtils.checkIndexExist(indexName)
     .then(exist => {
-        if (!exist) {
-            return ElasticUtils.createIndex('temp-index', tempIndexSettings);
+        if (exist) {
+            return ElasticUtils.deleteIndex(indexName);
         }
     })
     .then(value => {
-        return Indexer.index();
+        return ElasticUtils.createIndex(indexName, tempIndexSettings);
+    })
+    .then(value => {
+        return Indexer.index(indexName);
     });
 

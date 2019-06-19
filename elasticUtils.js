@@ -28,6 +28,14 @@ class ElasticUtils {
     }
 
     /**
+     * Delete an index from elastic
+     * @returns {Promise<void>}
+     */
+    async deleteIndex(index) {
+        await restUtils.delete(this.buildUrl(`/${index}`));
+    }
+
+    /**
      * Index a new document into elastic
      * @returns {Promise<void>}
      */
@@ -35,7 +43,15 @@ class ElasticUtils {
         await restUtils.post(this.buildUrl(`/${index}/_doc/${id}`), document);
     }
 
-    count() {
+
+    /**
+     * Returns the number of documents that are indexed in elastic.
+     * @returns {Promise<*>}
+     */
+    async count(index) {
+        let response = await restUtils.post(this.buildUrl(`/${index}/_count`));
+
+        return response.count;
     }
 
     buildUrl(path) {
