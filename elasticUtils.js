@@ -2,25 +2,21 @@ const restUtils = require('./restUtils');
 
 class ElasticUtils {
 
-    async createIndex() {
-        let body = {
-            settings: {},
-            mappings: {
-                dynamic: 'strict',
-                properties: {
-                    text: {
-                        type: 'text'
-                    }
-                }
-            }
-        };
-
-        await restUtils.put(this.buildUrl('/temp-index'), body)
+    /**
+     * Creates a new index in elastic search.
+     * @returns {Promise<void>}
+     */
+    async createIndex(index, body) {
+        await restUtils.put(this.buildUrl(`/${index}`), body)
     }
 
-    async checkIndexExist() {
+    /**
+     * Checks whether the provided index exists or not
+     * @returns {Promise<boolean>}
+     */
+    async checkIndexExist(index) {
         try {
-            await restUtils.head(this.buildUrl('/temp-index'));
+            await restUtils.head(this.buildUrl(`/${index}`));
 
             return true;
         } catch (e) {

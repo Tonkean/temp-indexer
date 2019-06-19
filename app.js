@@ -1,10 +1,22 @@
 const Indexer = require('./indexer');
 const ElasticUtils = require('./elasticUtils');
 
-ElasticUtils.checkIndexExist()
+let tempIndexSettings = {
+    settings: {},
+    mappings: {
+        dynamic: 'strict',
+        properties: {
+            text: {
+                type: 'text'
+            }
+        }
+    }
+};
+
+ElasticUtils.checkIndexExist('temp-index')
     .then(exist => {
         if (!exist) {
-            return ElasticUtils.createIndex();
+            return ElasticUtils.createIndex('temp-index', tempIndexSettings);
         }
     })
     .then(value => {
