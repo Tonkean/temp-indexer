@@ -1,5 +1,8 @@
 const restUtils = require('./restUtils');
 
+/**
+ * This class wraps all the communication with ElasticSearch.
+ */
 class ElasticUtils {
 
     /**
@@ -7,7 +10,7 @@ class ElasticUtils {
      * @returns {Promise<void>}
      */
     async createIndex(index, body) {
-        await restUtils.put(this.buildUrl(`/${index}`), body)
+        await restUtils.put(this.buildUrl(`/${index}`), body);
     }
 
     /**
@@ -24,10 +27,15 @@ class ElasticUtils {
         }
     }
 
-    count() {
+    /**
+     * Index a new document into elastic
+     * @returns {Promise<void>}
+     */
+    async indexDocument(index, id, document) {
+        await restUtils.post(this.buildUrl(`/${index}/_doc/${id}`), document);
     }
 
-    index() {
+    count() {
     }
 
     buildUrl(path) {

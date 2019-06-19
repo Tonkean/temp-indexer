@@ -2,6 +2,9 @@ const request = require('request-promise');
 
 class ElasticUtils {
 
+    /**
+     * HTTP Get request
+     */
     get(url, params) {
         let options = {
             method: 'GET',
@@ -15,6 +18,10 @@ class ElasticUtils {
         }, options);
     }
 
+
+    /**
+     * HTTP Head request
+     */
     head(url, data, params) {
         let options = {
             method: 'HEAD',
@@ -27,6 +34,27 @@ class ElasticUtils {
         }, options);
     }
 
+    /**
+     * HTTP Post request
+     */
+    post(url, data, params) {
+        let options = {
+            method: 'POST',
+            uri: url,
+            qs: params,
+            body: data,
+            json: true
+        };
+
+        return this.requestWrapper(async () => {
+            return await request.post(options);
+        }, options);
+    }
+
+
+    /**
+     * HTTP Put request
+     */
     put(url, data, params) {
         let options = {
             method: 'PUT',
