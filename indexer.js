@@ -1,5 +1,4 @@
-const console = require('console');
-const request = require('request-promise');
+const restUtils = require('./restUtils');
 
 class Indexer {
     constructor() {
@@ -12,15 +11,15 @@ class Indexer {
         let documents = await this.getDocuments(10);
     }
 
+    /**
+     * Fetches multiple jokes from the jokes provider.
+     * @param count The number of jokes to fetch.
+     * @returns {Promise<Array>}
+     */
     async getDocuments(count) {
         let documents = [];
         for (let i = 0; i < count; i++) {
-            let options = {
-                method: 'GET',
-                uri: 'https://geek-jokes.sameerkumar.website/api'
-            };
-
-            let response = await request(options);
+            let response = await restUtils.get('https://geek-jokes.sameerkumar.website/api');
             let document = { text: response };
             documents.push(document);
         }
