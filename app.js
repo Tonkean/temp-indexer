@@ -1,5 +1,6 @@
 const Indexer = require('./indexer');
 const ElasticUtils = require('./elasticUtils');
+const JokesProvider = require('./jokesProvider');
 
 let tempIndexSettings = {
     settings: {},
@@ -24,6 +25,6 @@ ElasticUtils.checkIndexExist(indexName)
         return ElasticUtils.createIndex(indexName, tempIndexSettings);
     })
     .then(value => {
-        return Indexer.index(indexName);
+        return Indexer.index(JokesProvider, indexName);
     });
 
