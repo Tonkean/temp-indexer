@@ -14,8 +14,6 @@ class Indexer {
             ElasticUtils.indexDocument(index, Utils.guid(), document);
         }
 
-        await Utils.sleep(500);
-
         let count = await ElasticUtils.count(index);
         if (count !== documents.length) {
             throw new Error(`WTF? I expected to find [${documents.length}] documents, but found [${count}]`);
